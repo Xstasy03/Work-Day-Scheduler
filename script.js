@@ -59,3 +59,38 @@ else {
 }
 } 
 };
+
+buildTimeBlocks();
+updateCurrentDay();
+
+var saveButtonClick = function(event) {
+    const id = event.target.id;
+    const clickedContent = $(`.content-task[id=${id}]`);
+
+    var textContent = clickedContent.val();
+    updateLocalStorage(textContent, id);
+};
+
+var updateLocalStorage = function(textContent, id) {
+    for(var i = 0; i < workdayContent.length; i++) {
+        if(workdayContent[i].id === id) {
+            workdayContent[i].workdayTask = textContent;
+            break;          
+        }
+        else {
+            workdayContent.push({
+                id: id,
+                workdayTask: textContent,
+            });
+            break;
+        }
+    }
+    if(workdayContent.length === 0) {
+        workdayContent.push({
+            id: id,
+            workdayTask: textContent,
+        });
+    }
+    localStorage.setItem('workdayTasks', JSON.stringify(workdayContent));
+    
+};
