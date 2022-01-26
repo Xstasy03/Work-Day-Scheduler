@@ -94,3 +94,4 @@ var updateLocalStorage = function(textContent, id) {
     localStorage.setItem('workdayTasks', JSON.stringify(workdayContent));
     
 };
+$(document).on('click', 'button', saveButtonClick);
