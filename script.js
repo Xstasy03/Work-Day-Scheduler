@@ -18,4 +18,44 @@ var retrieveStoredContent = function() {
     }
 }
 retrieveStoredContent();
+var updateCurrentDay = function() {
+    $(currentDayEl).text(headerDate);
+};
 
+var buildTimeBlocks = function() {
+    var hourTime = DateTime.now().hour;
+     for (var i=0; i < workTimes.length; i++) {
+        const contentSection = $('<section>');
+        contentSection.addClass('row h-auto content-section');
+        const hourDiv = $('<div>')
+            .addClass('hour col d-flex flex-column justify-content-center text-center')
+            .text(workTimes[i]);
+        contentSection.append(hourDiv);
+         const workdayContentDiv = $('<textarea>')
+         .addClass('col-10 text-dark content-task')
+         .attr('id', i)
+     contentSection.append(workdayContentDiv);
+     workdayContent.forEach(function(workdayTask) {
+         if(workdayTask.id == i) {
+             workdayContentDiv.val(workdayTask.workdayTask)
+         }
+     });
+ const btnElement = $('<button>')
+ .addClass('saveBtn col d-flex flex-column justify-content-center align-items-center')
+ .text('Save')
+ .attr('id', i)
+contentSection.append(btnElement);
+
+timeBlockEl.append(contentSection);
+
+if(workTimeNumbers[i] === hourTime) {
+ workdayContentDiv.addClass('present');
+} 
+else if (workTimeNumbers[i] < hourTime) {
+ workdayContentDiv.addClass('past');
+}
+else {
+ workdayContentDiv.addClass('future');
+}
+} 
+};
